@@ -4,7 +4,6 @@
 
 ![Vite + React (13 08 2024 15_40)](https://github.com/user-attachments/assets/f316a4c9-cacc-47ba-a595-e2b95c8d55a6)
 
-![Screenshot (356)](https://github.com/user-attachments/assets/c765f751-8f20-4e2d-af85-c6c3edcf7d06)
 
 
 ## Installation
