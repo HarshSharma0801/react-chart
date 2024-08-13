@@ -1,0 +1,215 @@
+import { create } from 'zustand'
+
+const useStore = create((set, get) => ({
+categories: [
+      {
+        "id": "1",
+        "name": "CSPM Executive Dashboard",
+        "widgets": [
+          {
+            "id": "101",
+            "name": "Security Compliance",
+            "type": "doughnut",
+            "data": {
+              "labels": ["Compliant", "Non-Compliant", "In Progress"],
+              "datasets": [
+                {
+                  "data": [60, 30, 10],
+                  "backgroundColor": ["#4CAF50", "#F44336", "#FFC107"],
+                  "hoverBackgroundColor": ["#66BB6A", "#EF5350", "#FFCA28"]
+                }
+              ]
+            }
+          },
+          {
+            "id": "102",
+            "name": "Threats Over Time",
+            "type": "line",
+            "data": {
+              "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+              "datasets": [
+                {
+                  "label": "Threats",
+                  "data": [3, 7, 5, 8, 6, 10],
+                  "borderColor": "#FF5722",
+                  "fill": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "name": "Sales Dashboard",
+        "widgets": [
+          {
+            "id": "103",
+            "name": "Quarterly Revenue",
+            "type": "bar",
+            "data": {
+              "labels": ["Q1", "Q2", "Q3", "Q4"],
+              "datasets": [
+                {
+                  "label": "Revenue",
+                  "data": [150000, 200000, 175000, 220000],
+                  "backgroundColor": ["#3F51B5", "#2196F3", "#03A9F4", "#00BCD4"]
+                }
+              ]
+            }
+          },
+          {
+            "id": "104",
+            "name": "Sales Distribution",
+            "type": "pie",
+            "data": {
+              "labels": ["North America", "Europe", "Asia"],
+              "datasets": [
+                {
+                  "data": [40, 35, 25],
+                  "backgroundColor": ["#9C27B0", "#E91E63", "#FF9800"],
+                  "hoverBackgroundColor": ["#AB47BC", "#F06292", "#FFB74D"]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "name": "Marketing Dashboard",
+        "widgets": [
+          {
+            "id": "105",
+            "name": "Campaign Effectiveness",
+            "type": "bar",
+            "data": {
+              "labels": ["Campaign 1", "Campaign 2", "Campaign 3"],
+              "datasets": [
+                {
+                  "label": "Effectiveness",
+                  "data": [75, 50, 90],
+                  "backgroundColor": ["#8BC34A", "#CDDC39", "#FFEB3B"]
+                }
+              ]
+            }
+          },
+          {
+            "id": "106",
+            "name": "Lead Conversion Rate",
+            "type": "doughnut",
+            "data": {
+              "labels": ["Converted", "Not Converted"],
+              "datasets": [
+                {
+                  "data": [45, 55],
+                  "backgroundColor": ["#00BCD4", "#FFC107"],
+                  "hoverBackgroundColor": ["#26C6DA", "#FFD54F"]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "name": "Finance Dashboard",
+        "widgets": [
+          {
+            "id": "107",
+            "name": "Budget Allocation",
+            "type": "pie",
+            "data": {
+              "labels": ["R&D", "Operations", "Marketing", "Sales"],
+              "datasets": [
+                {
+                  "data": [25, 30, 20, 25],
+                  "backgroundColor": ["#F44336", "#3F51B5", "#FFC107", "#4CAF50"],
+                  "hoverBackgroundColor": ["#EF5350", "#5C6BC0", "#FFD54F", "#66BB6A"]
+                }
+              ]
+            }
+          },
+          {
+            "id": "108",
+            "name": "Expense Over Time",
+            "type": "line",
+            "data": {
+              "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+              "datasets": [
+                {
+                  "label": "Expenses",
+                  "data": [5000, 7000, 6500, 8000, 7200, 9000],
+                  "borderColor": "#9C27B0",
+                  "fill": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "name": "HR Dashboard",
+        "widgets": [
+          {
+            "id": "109",
+            "name": "Employee Satisfaction",
+            "type": "doughnut",
+            "data": {
+              "labels": ["Satisfied", "Neutral", "Unsatisfied"],
+              "datasets": [
+                {
+                  "data": [70, 20, 10],
+                  "backgroundColor": ["#4CAF50", "#FFEB3B", "#F44336"],
+                  "hoverBackgroundColor": ["#66BB6A", "#FFEE58", "#EF5350"]
+                }
+              ]
+            }
+          },
+          {
+            "id": "110",
+            "name": "Hiring vs Attrition",
+            "type": "bar",
+            "data": {
+              "labels": ["Hiring", "Attrition"],
+              "datasets": [
+                {
+                  "label": "Numbers",
+                  "data": [150, 50],
+                  "backgroundColor": ["#2196F3", "#FF5722"]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+  
+  addWidget: (categoryId, widget) => set((state) => ({
+    categories: state.categories.map((category) =>
+      category.id === categoryId
+        ? { ...category, widgets: [...category.widgets, widget] }
+        : category
+    )
+  })),
+  
+  removeWidget: (categoryId, widgetId) => set((state) => ({
+    categories: state.categories.map((category) =>
+      category.id === categoryId
+        ? { ...category, widgets: category.widgets.filter((widget) => widget.id !== widgetId) }
+        : category
+    )
+  })),
+
+  searchWidgets: (term) => set((state) => ({
+    categories: state.categories.map((category) => ({
+      ...category,
+      widgets: category.widgets.filter((widget) =>
+        widget.name.toLowerCase().includes(term.toLowerCase())
+      )
+    }))
+  }))
+}));
+
+export default useStore;
